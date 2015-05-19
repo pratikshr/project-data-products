@@ -15,36 +15,43 @@ data(mtcars)
 # Output produces a grid of plots which compares data with text at bottom with explanation
 
 shinyUI(
-        pageWithSidebar(
-                headerPanel(""),
-                sidebarPanel(
-                        h2('select your car'),
-                        p('---------------------------------------------'),
-                        p('slide to select weight of cars'),
-                        sliderInput('wt', 'Car Weight in 1000 lbs', min(mtcars$wt), max(mtcars$wt), c(min(mtcars$wt),max(mtcars$wt))),
-                        p('---------------------------------------------'),
-                        p('slide to select engine size of cars'),
-                        sliderInput('disp', 'Car Engine size in Cu.In.', min(mtcars$disp), max(mtcars$disp), c(min(mtcars$disp),max(mtcars$disp))),
-                        p('---------------------------------------------'),
-                        p('select your car from dropdown list'),
-                        uiOutput("carslist"),
-                        p('---------------------------------------------'),
-                        strong('Notes'),
-                        p('User interface above will help you select
+        fluidPage(
+                titlePanel("Data Products Project - Pratik Shrestha"),
+                sidebarLayout(
+                        position = 'left',
+                        sidebarPanel(
+                                h2('select your car'),
+                                br(),
+                                em('slide to select weight of cars'),
+                                sliderInput('wt', 'Car Weight in 1000 lbs', min(mtcars$wt), max(mtcars$wt), c(min(mtcars$wt),max(mtcars$wt))),
+                                br(),
+                                em('slide to select engine size of cars'),
+                                sliderInput('disp', 'Car Engine size in Cu.In.', min(mtcars$disp), max(mtcars$disp), c(min(mtcars$disp),max(mtcars$disp))),
+                                br(),
+                                em('select your car from dropdown list'),
+                                uiOutput("carslist"),
+                                br(),
+                                strong('Notes'),
+                                p('User interface above will help you select
                the car based on filtering selection for weight
                and engine size.'),
-                        p('Filtering weight and engine size also eliminates
+                                p('Filtering weight and engine size also eliminates
                data in plot that do not fit your criteria.'),
-                        p('Selected car is shown to compare against others')
-                ),
-                mainPanel(
-                        h1('MotorTrend Car Data Analysis'),
-                        p('This data product analyzes mtcars dataset in R comparing miles per gallon and speed of selected car.'),
-                        p('The graphs below show where selected car stands in comparison of other cars.'), 
-                        plotOutput("mtplot",height="100%"),
-                        h2('Conclusion'),
-                        textOutput("cartext2"),
-                        textOutput("cartext3")
+                                p('Selected car is shown to compare against others')
+                        ),
+                        mainPanel(
+                                h1('MotorTrend Car Data Analysis'),
+                                p('This data product analyzes mtcars dataset in R comparing miles per gallon and speed of selected car.'),
+                                p('The graphs below show where selected car stands in comparison of other cars.'), 
+                                plotOutput("mtplot",height="100%"),
+                                h2('Conclusion'),
+                                textOutput("cartext2"),
+                                textOutput("cartext3"),
+                                br(),
+                                br(),
+                                h2('Unfiltered dataset for your reference'),
+                                dataTableOutput('ex1')
+                        )
                 )
         )
 )
